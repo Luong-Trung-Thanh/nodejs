@@ -46,10 +46,10 @@ app.intent("get_current_location", (conv, params, permissionGranted) => {
   }
 });
 
-app.intent('Default Welcome Intent', (conv) => {
-    conv.ask('Hi, what do you wanna talk about?');
-    conv.ask(new Suggestions(['fashion tips', 'celebrity news']));
-});
+// app.intent('Default Welcome Intent', (conv) => {
+//     conv.ask('Hi, what do you wanna talk about?');
+//     conv.ask(new Suggestions(['fashion tips', 'celebrity news']));
+// });
 
 // handlers for other intents..
 
