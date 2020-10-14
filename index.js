@@ -41,7 +41,7 @@ app.intent("get_current_location", (conv, params, permissionGranted) => {
       if (coordinates) {
 
 var url = "https://nominatim.openstreetmap.org/reverse?lat="+coordinates.latitude+"&lon="+coordinates.longitude+"&format=json";
-var location;
+
 request(url, function (err, res, body) {
     //nếu có lỗi
     if (err)
@@ -50,13 +50,13 @@ request(url, function (err, res, body) {
     console.log(res);
     //in ra body nhận được
     console.log(body);
-    location = body;
+    conv.ask(new SimpleResponse(body));
 })
 
 
        
 
-      return conv.close(new SimpleResponse(`Your Location details ${coordinates.latitude}, ${coordinates.longitude}, ${location}`));
+      return conv.close(new SimpleResponse(`Your Location details ${coordinates.latitude}, ${coordinates.longitude}`));
       } else {
         // Note: Currently, precise locaton only returns lat/lng coordinates on phones and lat/lng coordinates
         // and a geocoded address on voice-activated speakers.
