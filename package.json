@@ -8,10 +8,10 @@
   },
   "author": "Sunil Syal",
   "dependencies": {
-    "actions-on-google": "2.13.0",
+    "actions-on-google": "^2.13.0",
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
-    "node-geocoder": "3.27.0",
+    "node-geocoder": "^3.27.0",
     "request": "^2.88.2"
   }
 }
