@@ -5,7 +5,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const server = express();
 server.use(bodyParser.json());
-const axios = require('axios').default;
+const axios = require('axios');
 const {
   dialogflow,
   Suggestions,
@@ -49,10 +49,6 @@ var url = "https://nominatim.openstreetmap.org/reverse?lat="+coordinates.latitud
 // });
 
 
-
-
-       
-
      return conv.close(new SimpleResponse(`Your Location details ${coordinates.latitude}, ${coordinates.longitude}, ${url}`));
 
       } else {
@@ -91,21 +87,27 @@ server.post('/hook', app);
 
 
  
-// Make a request for a user with a given ID
+
+
+
+
+
  server.get("/url", function(req, res) {
-axios.post('https://nominatim.openstreetmap.org/reverse?lat=10.8636309&lon=106.7823465&format=json')
-  .then(function (response) {
-    // handle success
-    console.log(response.data.display_name);
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  })
-  .then(function () {
-    // always executed
-  });
-   });
+  const listUsers = async () => {
+    try {
+        const res = await axios.get('https://nominatim.openstreetmap.org/reverse?lat=10.8636309&lon=106.7823465&format=json');
+        console.log(res.data.display_name);
+    } catch (err) {
+        console.error(err);
+    }
+};
+
+listUsers();
+ });
+
+ 
+
+
 
 server.listen(process.env.PORT || 8000, function() {
   console.log("Server up and listening");
