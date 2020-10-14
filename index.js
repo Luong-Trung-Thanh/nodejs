@@ -91,7 +91,6 @@ server.post('/hook', app);
 
 
  
- server.get("/url", function(req, res) {
 // Make a request for a user with a given ID
 axios.get('https://nominatim.openstreetmap.org/reverse?lat=10.8636309&lon=106.7823465&format=json')
   .then(function (response) {
@@ -105,7 +104,7 @@ axios.get('https://nominatim.openstreetmap.org/reverse?lat=10.8636309&lon=106.78
   .then(function () {
     // always executed
   });
-   });
+  
 
 server.listen(process.env.PORT || 8000, function() {
   console.log("Server up and listening");
