@@ -92,7 +92,7 @@ server.post('/hook', app);
 
  
 // Make a request for a user with a given ID
-axios.get('https://nominatim.openstreetmap.org/reverse?lat=10.8636309&lon=106.7823465&format=json')
+axios.post('https://nominatim.openstreetmap.org/reverse?lat=10.8636309&lon=106.7823465&format=json')
   .then(function (response) {
     // handle success
     console.log(response.data.display_name);
