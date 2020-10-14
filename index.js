@@ -1,10 +1,11 @@
 'use strict';
 
-const request = require('request');
+//const request = require('request');
 const express = require('express');
 const bodyParser = require('body-parser');
 const server = express();
 server.use(bodyParser.json());
+const axios = require('axios');
 const {
   dialogflow,
   Suggestions,
@@ -42,10 +43,12 @@ app.intent("get_current_location", (conv, params, permissionGranted) => {
 
 var url = "https://nominatim.openstreetmap.org/reverse?lat="+coordinates.latitude+"&lon="+coordinates.longitude+"&format=json";
 
-request(url,function(error,response,body){
-    console.log(body);
-    return conv.close(new SimpleResponse(`Your Location details ${coordinates.latitude}, ${coordinates.longitude}, ${url}`));
-});
+// request(url,function(error,response,body){
+//     console.log(body);
+//     return conv.close(new SimpleResponse(`Your Location details ${coordinates.latitude}, ${coordinates.longitude}, ${url}`));
+// });
+
+
 
 
        
@@ -76,15 +79,33 @@ request(url,function(error,response,body){
 server.post('/hook', app);
 
 
-server.get("/url", function(req, res) {
+// server.get("/url", function(req, res) {
 
-  request('http://www.google.com', function (error, response, body) {
-    console.error('error:', error); // Print the error if one occurred
-    console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-    console.log('body:', body); // Print the HTML for the Google homepage.
+//   request('http://www.google.com', function (error, response, body) {
+//     console.error('error:', error); // Print the error if one occurred
+//     console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+//     console.log('body:', body); // Print the HTML for the Google homepage.
+//   });
+
+// });
+
+
+ 
+ server.get("/url", function(req, res) {
+// Make a request for a user with a given ID
+axios.get('https://nominatim.openstreetmap.org/reverse?lat=10.8636309&lon=106.7823465&format=json')
+  .then(function (response) {
+    // handle success
+    console.log(response.data.display_name);
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+  .then(function () {
+    // always executed
   });
-
-});
+   });
 
 server.listen(process.env.PORT || 8000, function() {
   console.log("Server up and listening");
