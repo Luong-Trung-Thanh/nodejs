@@ -72,6 +72,16 @@ request("http://vntalking.com",function(error,response,body){
 
 
 server.post('/hook', app);
+
+server.get("/url", function(req, res) {
+
+request("https://nominatim.openstreetmap.org/reverse?lat=10.8636309&lon=106.7823465&format=json",function(error,response,body){
+  console.log(body);
+});
+
+  
+ 
+});
 server.listen(process.env.PORT || 8000, function() {
   console.log("Server up and listening");
 });
