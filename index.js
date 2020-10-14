@@ -30,11 +30,13 @@ app.intent("get_current_location", (conv, params, permissionGranted) => {
     //let address;
     if (requestedPermission === "DEVICE_PRECISE_LOCATION") {
       const { coordinates } = conv.device.location;
+      const city=conv.device.location.city;
       console.log('coordinates are', coordinates);
 
+
       //if (coordinates && address) {
-      if (coordinates) {
-        return conv.close(new SimpleResponse(`Your Location details ${coordinates.latitude}, ${coordinates.longitude}`));
+      if (coordinates && city) {
+        return conv.close(new SimpleResponse(`Your Location details ${coordinates.latitude}, ${coordinates.longitude} in ${city}`));
       } else {
         // Note: Currently, precise locaton only returns lat/lng coordinates on phones and lat/lng coordinates
         // and a geocoded address on voice-activated speakers.
