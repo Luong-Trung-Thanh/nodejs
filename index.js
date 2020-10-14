@@ -93,6 +93,7 @@ server.post('/hook', app);
 
 
  server.get("/url", function(req, res) {
+   console.log("vo day la gui request duoc roi ne");
   const listUsers = async () => {
     try {
         const res = await axios.get('https://nominatim.openstreetmap.org/reverse?lat=10.8636309&lon=106.7823465&format=json');
