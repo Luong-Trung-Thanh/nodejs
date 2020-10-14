@@ -22,4 +22,6 @@ const bodyParser = require('body-parser');
 const server = express();
 server.use(bodyParser.json());
 //server.post('/hook', app);
-server.listen(3000, () => console.log('Server listening on port 3000.'))
+server.listen(process.env.PORT || 8000, function() {
+  console.log("Server up and listening");
+});
