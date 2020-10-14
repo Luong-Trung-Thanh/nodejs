@@ -1,5 +1,10 @@
 'use strict';
 
+const express = require('express');
+const bodyParser = require('body-parser');
+const server = express();
+const request = require('request');
+server.use(bodyParser.json());
 const {
   dialogflow,
   Suggestions,
@@ -35,22 +40,23 @@ app.intent("get_current_location", (conv, params, permissionGranted) => {
       //if (coordinates && address) {
       if (coordinates) {
 
-        // var options = {
-        //   provider: 'google',
-        //   httpAdapter: 'https', // Default
-        //   apiKey: 'AIzaSyCj8PGDE4OUephy8EK-_lYPEyeMJE5PBh4', // for Mapquest, OpenCage, Google Premier
-        //   formatter: 'json' // 'gpx', 'string', ...
-        // };
-            
-        // var geocoder = NodeGeocoder(options);
-        
-        // geocoder.reverse({lat:coordinates.latitude, lon:coordinates.longitude }).then(function(res) {
-        //   return conv.close(new SimpleResponse(res[0].formattedAddress));
-        // }).catch(function(error) {
-        //   console.log('error is', error);
-        // });
+var url = "https://nominatim.openstreetmap.org/reverse?lat="+coordinates.latitude+"&lon="+coordinates.longitude+"&format=json";
+var location;
+request(url, function (err, res, body) {
+    //nếu có lỗi
+    if (err)
+        throw err;
+    //in ra header
+    console.log(res);
+    //in ra body nhận được
+    console.log(body);
+    location = body;
+})
 
-      return conv.close(new SimpleResponse(`Your Location details ${coordinates.latitude}, ${coordinates.longitude}`));
+
+       
+
+      return conv.close(new SimpleResponse(`Your Location details ${coordinates.latitude}, ${coordinates.longitude}, ${location}`));
       } else {
         // Note: Currently, precise locaton only returns lat/lng coordinates on phones and lat/lng coordinates
         // and a geocoded address on voice-activated speakers.
@@ -70,10 +76,7 @@ app.intent("get_current_location", (conv, params, permissionGranted) => {
 
 // handlers for other intents..
 
-const express = require('express');
-const bodyParser = require('body-parser');
-const server = express();
-server.use(bodyParser.json());
+
 server.post('/hook', app);
 server.listen(process.env.PORT || 8000, function() {
   console.log("Server up and listening");
