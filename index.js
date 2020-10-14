@@ -5,7 +5,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const server = express();
 server.use(bodyParser.json());
-const axios = require('axios');
+const axios = require('axios').default;
 const {
   dialogflow,
   Suggestions,
@@ -92,6 +92,7 @@ server.post('/hook', app);
 
  
 // Make a request for a user with a given ID
+ server.get("/url", function(req, res) {
 axios.post('https://nominatim.openstreetmap.org/reverse?lat=10.8636309&lon=106.7823465&format=json')
   .then(function (response) {
     // handle success
@@ -104,7 +105,7 @@ axios.post('https://nominatim.openstreetmap.org/reverse?lat=10.8636309&lon=106.7
   .then(function () {
     // always executed
   });
-  
+   });
 
 server.listen(process.env.PORT || 8000, function() {
   console.log("Server up and listening");
