@@ -98,7 +98,7 @@ server.post('/hook', app);
         const res = await axios.get('https://nominatim.openstreetmap.org/reverse?lat=10.8636309&lon=106.7823465&format=json');
         console.log(res.data.display_name);
     } catch (err) {
-        console.error(err);
+        console.error("Loi "+err);
     }
 };
 
