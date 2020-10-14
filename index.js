@@ -34,23 +34,7 @@ app.intent("get_current_location", (conv, params, permissionGranted) => {
 
       //if (coordinates && address) {
       if (coordinates) {
-
-        var options = {
-          provider: 'google',
-          httpAdapter: 'https', // Default
-          apiKey: '', // for Mapquest, OpenCage, Google Premier
-          formatter: 'json' // 'gpx', 'string', ...
-        };
-            
-        var geocoder = NodeGeocoder(options);
-        
-        geocoder.reverse({lat:coordinates.latitude, lon:coordinates.longitude }).then(function(res) {
-          return conv.close(new SimpleResponse(res[0].formattedAddress));
-        }).catch(function(error) {
-          console.log('error is', error);
-        });
-        
-        //return conv.close(new SimpleResponse(`Your Location details ${coordinates.latitude}, ${coordinates.longitude}`));
+      return conv.close(new SimpleResponse(`Your Location details ${coordinates.latitude}, ${coordinates.longitude}`));
       } else {
         // Note: Currently, precise locaton only returns lat/lng coordinates on phones and lat/lng coordinates
         // and a geocoded address on voice-activated speakers.
