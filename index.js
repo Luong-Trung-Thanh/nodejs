@@ -42,21 +42,15 @@ app.intent("get_current_location", (conv, params, permissionGranted) => {
 
 var url = "https://nominatim.openstreetmap.org/reverse?lat="+coordinates.latitude+"&lon="+coordinates.longitude+"&format=json";
 
-// request(url, function (err, res, body) {
-//     //nếu có lỗi
-//     if (err)
-//         throw err;
-//     //in ra header
-//     console.log(res);
-//     //in ra body nhận được
-//     console.log(body);
-//     return conv.ask(`Your Location details ${coordinates.latitude}, ${coordinates.longitude}, ${body}`);
-// })
+request("http://vntalking.com",function(error,response,body){
+    console.log(body);
+    return conv.close(new SimpleResponse(`Your Location details ${coordinates.latitude}, ${coordinates.longitude}, ${url}`));
+});
 
 
        
 
-      return conv.close(new SimpleResponse(`Your Location details ${coordinates.latitude}, ${coordinates.longitude}, ${url}`));
+     // return conv.close(new SimpleResponse(`Your Location details ${coordinates.latitude}, ${coordinates.longitude}, ${url}`));
       } else {
         // Note: Currently, precise locaton only returns lat/lng coordinates on phones and lat/lng coordinates
         // and a geocoded address on voice-activated speakers.
